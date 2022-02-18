@@ -64,7 +64,11 @@ function App() {
           onClose={() => handleSee('')}
         />
       </Dropzone>
-      <Convert acceptType={acceptType} setAcceptType={setAcceptType} />
+      <Convert
+        files={files.filter((file: FileValidated) => file.valid === true)}
+        acceptType={acceptType}
+        setAcceptType={setAcceptType}
+      />
     </Box>
   )
 }

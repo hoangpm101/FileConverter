@@ -1,12 +1,15 @@
 import { Box, Button, FormControl, InputLabel, Select } from '@material-ui/core'
-import { GetProperty } from 'src/functions'
+import { getProperty } from 'src/functions'
 import { useStyles } from 'src/styles/app'
+import { FileValidated } from 'dropzone-ui'
+import { csvToJSON } from 'src/functions'
 
 interface Props {
+  files: FileValidated[]
   acceptType: string
   setAcceptType: React.Dispatch<React.SetStateAction<string>>
 }
-const Convert = ({ acceptType, setAcceptType }: Props) => {
+const Convert = ({ files, acceptType, setAcceptType }: Props) => {
   const classes = useStyles()
   const types: string[] = ['video', 'application']
   const convertTypes: object = {
@@ -25,10 +28,7 @@ const Convert = ({ acceptType, setAcceptType }: Props) => {
   }
   const handleConvert = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // const target = e.target as typeof e.target & {
-    //   convertType: { value: string }
-    // }
-    // console.log(target.convertType.value)
+    if (e.currentTarget.convertType.value === 'json') csvToJSON(files)
   }
   return (
     <form onSubmit={(e) => handleConvert(e)}>
@@ -68,7 +68,7 @@ const Convert = ({ acceptType, setAcceptType }: Props) => {
             name="convertType"
           >
             <option></option>
-            {GetProperty(convertTypes, acceptType.replace('/*', '')).map(
+            {getProperty(convertTypes, acceptType.replace('/*', '')).map(
               (convertType) => (
                 <option key={`convertTypeFile ${convertType}`}>
                   {convertType}

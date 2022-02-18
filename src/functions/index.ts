@@ -1,3 +1,4 @@
-import GetProperty from './GetProperty'
+import getProperty from './getProperty'
+import csvToJSON from './csvToJSON'
 
-export { GetProperty }
+export { getProperty, csvToJSON }
