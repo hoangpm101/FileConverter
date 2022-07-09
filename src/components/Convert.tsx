@@ -1,17 +1,25 @@
 import { Box, Button, FormControl, InputLabel, Select } from '@material-ui/core'
-import { GetProperty } from 'src/functions'
+import {
+  getProperty,
+  webmToMP4,
+  csvToJSON,
+  jsonToCSV,
+  mp4ToWebm,
+} from 'src/functions'
 import { useStyles } from 'src/styles/app'
+import { FileValidated } from 'dropzone-ui'
 
 interface Props {
+  files: FileValidated[]
   acceptType: string
   setAcceptType: React.Dispatch<React.SetStateAction<string>>
 }
-const Convert = ({ acceptType, setAcceptType }: Props) => {
+const Convert = ({ files, acceptType, setAcceptType }: Props) => {
   const classes = useStyles()
   const types: string[] = ['video', 'application']
   const convertTypes: object = {
     video: ['webm', 'mp4'],
-    application: ['json', 'pdf', 'docx'],
+    application: ['json', 'csv'],
   }
   const handleChangeType = (
     e: React.ChangeEvent<{
@@ -25,10 +33,20 @@ const Convert = ({ acceptType, setAcceptType }: Props) => {
   }
   const handleConvert = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // const target = e.target as typeof e.target & {
-    //   convertType: { value: string }
-    // }
-    // console.log(target.convertType.value)
+    switch (e.currentTarget.convertType.value) {
+      case 'json':
+        csvToJSON(files)
+        break
+      case 'csv':
+        jsonToCSV(files)
+        break
+      case 'mp4':
+        webmToMP4(files)
+        break
+      case 'webm':
+        mp4ToWebm(files)
+        break
+    }
   }
   return (
     <form onSubmit={(e) => handleConvert(e)}>
@@ -68,7 +86,7 @@ const Convert = ({ acceptType, setAcceptType }: Props) => {
             name="convertType"
           >
             <option></option>
-            {GetProperty(convertTypes, acceptType.replace('/*', '')).map(
+            {getProperty(convertTypes, acceptType.replace('/*', '')).map(
               (convertType) => (
                 <option key={`convertTypeFile ${convertType}`}>
                   {convertType}

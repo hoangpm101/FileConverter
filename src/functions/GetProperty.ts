@@ -1,4 +1,4 @@
-const GetProperty = (convertTypes: object, type: string) => {
+const getProperty = (convertTypes: object, type: string) => {
   if (type !== '') {
     const arr = Object.entries(convertTypes)
     const filter: [string, string[]][] = arr.filter(
@@ -9,4 +9,4 @@ const GetProperty = (convertTypes: object, type: string) => {
   } else return [] as string[]
 }
 
-export default GetProperty
+export default getProperty
