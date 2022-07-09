@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, InputLabel, Select } from '@material-ui/core'
 import {
-  // getProperty,
+  getProperty,
   webmToMP4,
   csvToJSON,
   jsonToCSV,
@@ -11,16 +11,16 @@ import { FileValidated } from 'dropzone-ui'
 
 interface Props {
   files: FileValidated[]
-  // acceptType: string
+  acceptType: string
   setAcceptType: React.Dispatch<React.SetStateAction<string>>
 }
-const Convert = ({ files, setAcceptType }: Props) => {
+const Convert = ({ files, acceptType, setAcceptType }: Props) => {
   const classes = useStyles()
   const types: string[] = ['video', 'application']
-  // const convertTypes: object = {
-  //   video: ['webm', 'mp4'],
-  //   application: ['json', 'csv'],
-  // }
+  const convertTypes: object = {
+    video: ['webm', 'mp4'],
+    application: ['json', 'csv'],
+  }
   const handleChangeType = (
     e: React.ChangeEvent<{
       name?: string
@@ -86,13 +86,13 @@ const Convert = ({ files, setAcceptType }: Props) => {
             name="convertType"
           >
             <option></option>
-            {/* {getProperty(convertTypes, acceptType.replace('/*', '')).map(
+            {getProperty(convertTypes, acceptType.replace('/*', '')).map(
               (convertType) => (
                 <option key={`convertTypeFile ${convertType}`}>
                   {convertType}
                 </option>
               )
-            )} */}
+            )}
           </Select>
         </FormControl>
         <Button variant="contained" className={classes.button} type="submit">

@@ -66,7 +66,7 @@ function App() {
       </Dropzone>
       <Convert
         files={files.filter((file: FileValidated) => file.valid === true)}
-        // acceptType={acceptType}
+        acceptType={acceptType}
         setAcceptType={setAcceptType}
       />
     </Box>
