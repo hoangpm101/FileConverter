@@ -16,10 +16,11 @@ interface Props {
 }
 const Convert = ({ files, acceptType, setAcceptType }: Props) => {
   const classes = useStyles()
-  const types: string[] = ['video', 'application']
+  const types: string[] = ['video', 'application', 'text']
   const convertTypes: object = {
     video: ['webm', 'mp4'],
-    application: ['json', 'csv'],
+    application: ['csv'],
+    text: ['json'],
   }
   const handleChangeType = (
     e: React.ChangeEvent<{
